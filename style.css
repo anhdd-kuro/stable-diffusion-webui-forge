@@ -1084,10 +1084,12 @@ footer {
 }
 
 .extra-network-pane .card .actions .description {
-    display: block;
-    max-height: 3em;
     white-space: pre-wrap;
     line-height: 1.1;
+    overflow: hidden;
+    max-height: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .extra-network-pane .card .actions .description:hover {
@@ -1396,7 +1398,7 @@ body.resizing .resize-handle {
     flex-basis: 100%;
 }
 /* Buttons for directories. */
-.extra-network-tree .tree-list-content-dir {}   
+.extra-network-tree .tree-list-content-dir {}
 
 /* Buttons for files. */
 .extra-network-tree .tree-list-item--has-subitem .tree-list--subgroup > li:first-child {
