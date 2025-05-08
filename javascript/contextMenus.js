@@ -121,6 +121,9 @@ var addContextMenuEventListener = initResponse[2];
 var regen_txt2img = null;
 var regen_img2img = null;
 
+// Global flag to indicate when generate forever is active
+window.isGenerateForeverActive = false;
+
 (function() {
     //Start example Context Menu Items
     let generateOnRepeat_txt2img = function() {
@@ -130,6 +133,9 @@ var regen_img2img = null;
 			if (!interrupt.offsetParent) {
 				generate.click();
 			}
+
+			// Set the global flag to indicate generate forever is active
+			window.isGenerateForeverActive = true;
 
 			regen_txt2img = setInterval(function() {
 				if (interrupt.style.display == 'none') {
@@ -146,6 +152,8 @@ var regen_img2img = null;
     let cancel_regen_txt2img = function() {
         clearInterval(regen_txt2img);
 		regen_txt2img = null;
+		// Reset the global flag when generate forever is canceled
+		window.isGenerateForeverActive = false;
     };
     appendContextMenuOption('#txt2img_interrupt', 'Cancel generate forever', cancel_regen_txt2img);
     appendContextMenuOption('#txt2img_generate', 'Cancel generate forever', cancel_regen_txt2img);
@@ -157,6 +165,9 @@ var regen_img2img = null;
 			if (!interrupt.offsetParent) {
 				generate.click();
 			}
+
+			// Set the global flag to indicate generate forever is active
+			window.isGenerateForeverActive = true;
 
 			regen_img2img = setInterval(function() {
 				if (interrupt.style.display == 'none') {
@@ -173,6 +184,8 @@ var regen_img2img = null;
     let cancel_regen_img2img = function() {
         clearInterval(regen_img2img);
 		regen_img2img = null;
+		// Reset the global flag when generate forever is canceled
+		window.isGenerateForeverActive = false;
     };
     appendContextMenuOption('#img2img_interrupt', 'Cancel generate forever', cancel_regen_img2img);
     appendContextMenuOption('#img2img_generate', 'Cancel generate forever', cancel_regen_img2img);
