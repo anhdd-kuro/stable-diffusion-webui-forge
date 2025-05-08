@@ -141,6 +141,11 @@ function requestProgress(id_task, progressbarContainer, gallery, atEnd, onProgre
                 progressText += " ETA: " + formatTime(res.eta);
             }
 
+            // Check our global flag directly, rather than relying on the backend
+            if (window.isGenerateForeverActive) {
+                progressText += " ( GF on )";
+            }
+
             setTitle(progressText);
 
             if (res.textinfo && res.textinfo.indexOf("\n") == -1) {
