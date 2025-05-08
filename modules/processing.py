@@ -5,6 +5,7 @@ import math
 import os
 import sys
 import hashlib
+import time
 from dataclasses import dataclass, field
 
 import torch
@@ -767,6 +768,7 @@ def create_infotext(p, all_prompts, all_seeds, all_subseeds, comments=None, iter
         "Init image hash": getattr(p, 'init_img_hash', None),
         "RNG": noise_source_type if noise_source_type != "GPU" else None,
         "Tiling": "True" if p.tiling else None,
+        "Time taken": f"{time.time() - shared.state.time_start:.2f}s" if shared.state.time_start is not None else None,
         **p.extra_generation_params,
         "Version": program_version() if opts.add_version_to_infotext else None,
         "User": p.user if opts.add_user_name_to_info else None,
@@ -816,7 +818,7 @@ def process_images(p: StableDiffusionProcessing) -> Processed:
     """applies settings overrides (if any) before processing images, then restores settings as applicable."""
     if p.scripts is not None:
         p.scripts.before_process(p)
-        
+
     stored_opts = {k: opts.data[k] if k in opts.data else opts.get_default(k) for k in p.override_settings.keys() if k in opts.data}
 
     try:
